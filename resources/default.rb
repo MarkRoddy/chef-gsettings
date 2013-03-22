@@ -1,10 +1,13 @@
 actions :set, :reset
 
-default_action :set
-# Covers 0.10.8 and earlier
-def initialize(*args)
-  super
-  @action = :set
+begin
+  default_action :set
+rescue NoMethodError
+  # Covers 0.10.8 and earlier
+  def initialize(*args)
+    super
+    @action = :set
+  end
 end
 
 attribute :schema, :kind_of => String, :name_attribute => true
